@@ -9,38 +9,80 @@
     <script src="https://unpkg.com/d3-svg-annotation@2/d3-annotation.min.js"></script>
     <style>
         .textstyle1{
-            font-size: 50px;
+            font-size: 200%;
+            padding-top: 50px;
         }
 
         .textstyle2{
             font-weight: bold;
-            font-size: 40px;
+            font-size: 160%;
+            text-align: right;
         }
 
         .textstyle3{
-            font-size: 30px;
+            /* text-align: right; */
+            font-size: 130%;
         }
 
         .textstyle4{
-            font-size: 20px;
+            font-size: 130%;
+            padding-left: 1em;
+        }
+        .textstylearticle{
+            /* text-align: left; */
+            font-size: 130%;
+        }
+        .textstyleexplain{
+            text-align: right;
+            font-size: 150%;
+        }
+
+        #article1{
+            /* justify-content: center; */
+            /* display: flex; */
+            width: 80em;
+            height: 10em;
+            text-align: center;
+            padding-left: 15em;
+            padding-right: 15em;
         }
 
         #container {
             display: flex;
-            margin-left: 80px;
-            margin-right: 70px;
+            justify-content: center;
+            /* padding-left: %;
+            padding-right: 2em; */
+        }
+        #containerLarge{
+            height: 3000px;
+            width: 1700px;
+            /* padding-left: 20em;
+            padding-right: 2em; */
+            font-size: 16px;
+            justify-content: center;
         }
         #text-section {
             width: 25%;
-            padding-left: 50px;
+            padding-left: 30px;
+            align-items: right;
             /* display: flex; */
         }
+        #furtherInformation{
+            padding-top: 8em;
+            padding-left: 5em;
+            text-align: left;
+        }
+
         #chart-section {
-            
+            padding-left: 0px;
             width: 75%;
         }
+
+
         #buttons {
             display: absolute;
+            font-size: 16px;
+            align-items: center;
             /* height: 100vh; */
         }
         #button-section1 {
@@ -49,10 +91,17 @@
         #button-section2 {
             width: 35%;
         }
+        #button-section1:hover{
+            width: 35%;
+        }
         #button-section3 {
             width: 15%;
         }
         .large-text-button {
+            /* width: 150%; */
+        font-size: 120%;
+        }
+        .large-text-button:hover {
             /* width: 150%; */
         font-size: 150%;
         }
@@ -64,7 +113,7 @@
         .tooltip {
         position: absolute;
         text-align: left;
-        width: 200px;
+        width: 170px;
         height: 70px;
         padding: 20px;
         font: 20px sans-serif;
@@ -78,44 +127,62 @@
 
   </head>
 
-  <body style="text-align: center" onload="init()">
+  <body style="text-align: center;justify-content: center; align-items: center;" onload="init()">
+    <div id="containerLarge">
 
     <h1 id="subtitle" class="textstyle1">Global Population Trends from 1999 to 2000</h1>
     <article id="article1">
-        <p class="textstyle3">line1</p>
-        <p class="textstyle3">line2</p>
+        <p class="textstylearticle">Population growth is one of the most important topics in human development. Over the last few centuries, the human population has gone through an extraordinary change. After a period of population explosion, the growth slows down. The global birth and death rates have decreased in the past twenty-two years. However, the birth rate drops significantly faster than the death rate, so the differences between these measures are falling, reflecting a decreasing trend in global population growth. <span style="color:rgb(235, 60, 60)">Move the mouse over the line in the chart and explore the demographic change.</span></p>
+        <!-- <p class="textstylearticle">line2</p> -->
     </article>
 
     <div id="container">
         <div id="text-section">
         <div id="buttons">
             <!-- <div id="button-section2"> -->
-                <button onclick="location.href='scene1.html'" class="long-button">Birth Rate</button>
+                <button onclick="location.href='scene1.html'" class="large-text-button">Birth Rate</button>
             <!-- </div>
             <div id="button-section1"> -->
-                <button onclick="location.href='scene2.html'" class="large-text-button">Death Rate</button>
+                <button onclick="location.href='scene2.html'" class="long-button">Death Rate</button>
             <!-- </div>
             <div id="button-section1"> -->
                 <button onclick="location.href='scene3.html'" class="large-text-button">Explore</button>
             <!-- </div>
             <div id="button-section3"> -->
-                <button onclick="location.href='scene3.html'" class="large-text-button">&gt;</button>
+                <button onclick="location.href='scene2.html'" class="large-text-button">&gt;</button>
             <!-- </div> -->
         </div>
             
+            <p class="textstyle2" >Birth Rate & Death Rate, <br>1999 to 2021</p>
+            <!-- <p class="textstyle3">The number of live births occurring during the year, per 1,000 people.</p> -->
+            <p class="textstyleexplain">Birth Rate = (Number of Live Births / Total Population) x 1,000</p>
 
-            <p>Your text goes here...</p>
+            <div id="furtherInformation">
+                <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
+                <p class="textstyle3">The difference between the birth rate and the death rate is important.  It gives us a good indication of the rate at which a population is growing or shrinking. <br> <span style="color:rgb(235, 60, 60)">Place mouse over the following keywords:</span></p>
+                <!-- <p class="textstyle4">- Economy
+                    <br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A high birth rate may indicate a young, growing population. This can mean a larger future workforce, which can contribute to economic growth. On the other hand, a high death rate and low birth rate can indicate an aging population. Economies with this demographic may face challenges related to healthcare costs, a decrease in the workforce, and the need to support an increasing elderly population.
+                </p> -->
+                <span class="textstyle4" id="economic">- Economic</span>
+                    <div id="economic-explain" style="display: none; font-size: 1.3em; ">
+                        <br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A high birth rate may indicate a young, growing population. This can mean a larger future workforce, which can contribute to economic growth. On the other hand, a high death rate and low birth rate can indicate an aging population. Economies with this demographic may face challenges related to healthcare costs, a decrease in the workforce, and the need to support an increasing elderly population.
+                    </div>
+                <p class="textstyle4">- Healthcare</p>
+                <p class="textstyle4">- Education</p>
+            </div>
 
         </div>
 
         <div id="chart-section">
-            <p class="textstyle2">Global Birth Rate from 1999 to 2020</p>
-            <svg width="1200" height="900" id="mainsvg" class="svgs" style="background-color: #ffffff;"></svg>
+            <!-- <p class="textstyle2">Global Birth Rate from 1999 to 2020</p> -->
+            <svg width="1200" height="800" id="mainsvg" class="svgs" style="background-color: #ffffff;"></svg>
         </div>
 
     </div>
 
     <script src="scene2chart.js"></script>
+    <script src="scene2text.js"></script>
+</div>
 </body>
 
 </html>

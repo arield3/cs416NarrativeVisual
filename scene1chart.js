@@ -1,5 +1,5 @@
 const svg = d3.select('#mainsvg');
-const margin = {top: 50, right: 50, bottom: 200, left: 100};
+const margin = {top: 50, right: 200, bottom: 200, left: 130};
 const width = +svg.attr('width');
 const height = +svg.attr('height');
 const innerWidth = width - margin.left - margin.right;
@@ -16,7 +16,7 @@ async function init(){
     console.log(data);
 
     // text
-    const subtitle = d3.select('#subtitle').attr('class','textstyle1')
+    // const subtitle = d3.select('#subtitle').attr('class','textstyle1')
 
 
 
@@ -47,12 +47,12 @@ async function init(){
     chartGroup.append("g")
     .attr("transform", `translate(0, ${innerHeight})`)
     .call(d3.axisBottom(xScale).ticks(11).tickFormat(d3.format("d")))
-    .style("font-size", "20px");
+    .style("font-size", "18px");
 
     // Draw y-axis
     chartGroup.append("g")
-    .call(d3.axisLeft(yScale))
-    .style("font-size", "20px");
+    .call(d3.axisLeft(yScale).ticks(10).tickFormat(d3.format("d")))
+    .style("font-size", "18px");
 
     // Define the line generator
     const line = d3.line()
@@ -70,23 +70,26 @@ async function init(){
     .attr("class", "line")
     .attr("d", d => line(birthratedata.filter(data => data.SeriesName === d)))
     .attr('fill', 'none')
-    .style("stroke", (d, i) => d3.schemeCategory10[i % 10]); // Use different colors for each series
+    .style("stroke", (d, i) => d3.schemeCategory10[i % 10])
+    .style("stroke-width","3"); // Use different colors for each series
 
     // Add labels and title
     chartGroup.append("text")
     .attr("x", innerWidth / 2)
     .attr("y", innerHeight + margin.bottom /2 )
     .style("text-anchor", "middle")
-    .style("font-size", "30px")
+    .style("font-size", "22px")
+    .style("font-weight", "bold")
     .text("Year");
 
     chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -innerHeight / 2)
-    .attr("y", -margin.left + 20)
+    .attr("y", -margin.left + 80)
     .style("text-anchor", "middle")
-    .style("font-size", "30px")
-    .text("Value");
+    .style("font-size", "22px")
+    .style("font-weight", "bold")
+    .text("Birth Rate");
 
     // chartGroup.append("text")
     // .attr("x", innerWidth / 2)
@@ -120,8 +123,8 @@ async function init(){
             .duration(500)
             .style("opacity", 1);
         tooltip.html("Year: " + d.year + "<br/>" + "Birth Rate: " + d.value)
-            .style("left", (svgBound.right -100) + "px")
-            .style("top", (svgBound.top) + "px");
+            .style("left", 15 + "em")
+            .style("top", 25 + "em");
 
         crossLineX.attr('x1', 0).attr('y1', y).attr('x2', x).attr('y2', y); 
         crossLineY.attr('x1', x).attr('y1', y).attr('x2', x).attr('y2', innerHeight);
@@ -131,7 +134,7 @@ async function init(){
         d3.select(this).attr('stroke', '#364747');
         tooltip.transition()
             .duration(500)
-            .style("opacity", 0);
+            .style("opacity", 0.3);
     });
 
     // document.addEventListener('mousemove', function(event){
@@ -145,18 +148,19 @@ async function init(){
 
     // Add an annotation for the year 2012
     const annotationData = birthratedata.find(d => d.year === '2012');  
-    console.log(annotationData);
+    // console.log(annotationData);
     if(annotationData) {
         const annotations = [
             {
                 note: {
-                    label: `Subsequent to a transient augmentation, the birth rate undergoes a more accelerated decline.`,
+                    label: `After a transient augmentation, the birth rate underwent a more accelerated decline.`,
                     title: "Year 2012",
-                    wrap: 270
+                    wrap: 270,
+                    color: ["red"]
                 },
                 x: xScale(annotationData.year),
                 y: yScale(annotationData.value),
-                dy: -40,
+                dy: -60,
                 dx: 40
             }
         ];
@@ -165,11 +169,11 @@ async function init(){
             .annotations(annotations);
 
         chartGroup.append("g")
+        .attr("id","annotation0")
             .call(makeAnnotations);
 
-            d3.selectAll("g.annotation text")
-            .style("fill", 'red')
-            .style("font-size", '25px');
+            d3.select("#annotation0 g.annotation text")
+            .style("font-size", '22px').style("fill","red");
     }
 
     

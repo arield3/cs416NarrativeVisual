@@ -1,5 +1,5 @@
 const svg = d3.select('#mainsvg');
-const margin = {top: 50, right: 50, bottom: 200, left: 100};
+const margin = {top: 50, right: 200, bottom: 200, left: 130};
 const width = +svg.attr('width');
 const height = +svg.attr('height');
 const innerWidth = width - margin.left - margin.right;
@@ -16,7 +16,7 @@ async function init(){
     console.log(data);
 
     // text
-    const subtitle = d3.select('#subtitle').attr('class','textstyle1')
+    // const subtitle = d3.select('#subtitle').attr('class','textstyle1')
 
 
 
@@ -57,12 +57,12 @@ async function init(){
     chartGroup.append("g")
     .attr("transform", `translate(0, ${innerHeight})`)
     .call(d3.axisBottom(xScale).ticks(11).tickFormat(d3.format("d")))
-    .style("font-size", "20px");
+    .style("font-size", "18px");
 
     // Draw y-axis
     chartGroup.append("g")
-    .call(d3.axisLeft(yScale))
-    .style("font-size", "20px");
+    .call(d3.axisLeft(yScale).ticks(10).tickFormat(d3.format("d")))
+    .style("font-size", "18px");
 
     // Define the line generator
     const line = d3.line()
@@ -81,7 +81,8 @@ async function init(){
     .attr("class", "line")
     .attr("d", d => line(birthratedata.filter(data => data.SeriesCode === d)))
     .attr('fill', 'none')
-    .style("stroke", (d, i) => d3.schemeCategory10[i % 10]); // Use different colors for each series
+    .style("stroke", (d, i) => d3.schemeCategory10[i % 10])
+    .style("stroke-width","3"); // Use different colors for each series
 
     // seriesGroups.append("path")
     // .attr("class", "line")
@@ -94,16 +95,18 @@ async function init(){
     .attr("x", innerWidth / 2)
     .attr("y", innerHeight + margin.bottom /2 )
     .style("text-anchor", "middle")
-    .style("font-size", "30px")
+    .style("font-size", "22px")
+    .style("font-weight", "bold")
     .text("Year");
 
     chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -innerHeight / 2)
-    .attr("y", -margin.left + 20)
+    .attr("y", -margin.left + 80)
     .style("text-anchor", "middle")
-    .style("font-size", "30px")
-    .text("Value");
+    .style("font-size", "22px")
+    .style("font-weight", "bold")
+    .text("Rate");
 
     // chartGroup.append("text")
     // .attr("x", innerWidth / 2)
@@ -126,8 +129,9 @@ async function init(){
     .attr("cy", d => yScale(d.value))
     .attr("r", 9)
     // .style('fill', (d, i) => d3.schemeCategory10[i % 10]);
-    .attr('stroke-width', 5).attr('stroke', '#364747').attr('fill', '#364747').attr('opacity', 0.6)
+    .attr('stroke-width', 2).attr('stroke', '#364747').attr('fill', '#364747').attr('opacity', 0.6)
     .on('mouseover', function(event, d) {
+        d3.select('#differenceText').remove();
         d3.select(this).attr('stroke', '#38eff2');
         // let [x, y] = d3.pointer(event, this);
         let x = xScale(d.year);
@@ -143,28 +147,49 @@ async function init(){
             .style("opacity", 1);
         let seriesName = d.SeriesCode === 'SP.DYN.CBRT.IN' ? 'Birth Rate' : (d.SeriesCode === 'SP.DYN.CDRT.IN' ? 'Death Rate' : 'Value');
         tooltip.html("Year: " + d.year + "<br/>" + seriesName + ": " + d.value)
-            .style("left", (svgBound.right -100) + "px")
-            .style("top", (svgBound.top) + "px");
+        .style("left", 15 + "em")
+        .style("top", 26 + "em");
+
+        let yendpointannotate = y;
     
         crossLineX.attr('x1', 0).attr('y1', y).attr('x2', x).attr('y2', y); 
+        if(d.SeriesCode === 'SP.DYN.CDRT.IN'){
+            y=yScale(correspondingData.value)
+        }
         crossLineY.attr('x1', x).attr('y1', y).attr('x2', x).attr('y2', innerHeight);
+        
 
+        // console.log("pos:", (innerWidth/2-x)*0.1)
         // Add the difference text
-        chartGroup.append('text')
-        .attr('x', x + 10)  // Offset from the line
-        .attr('y', innerHeight/2)
+        let textElement = chartGroup.append('text')
+        .attr('x', x)  // Offset from the line
+        .attr('y', innerHeight/2+100)
         .attr('id', 'differenceText')  // To select and remove it later
         .text("Difference: " + difference.toFixed(2))  // You can format it as needed
         .attr('font-size', '20px')
         .attr('fill', 'red');
+
+        let textWidth = textElement.node().getBBox().width;
+        // console.log("textWidth",textWidth)
+        // console.log("x + textWidth",x + textWidth)
+
+
+        // make sure the text fits within the SVG
+        if (x + textWidth > innerWidth) {
+            x = innerWidth - textWidth - 2;
+        }
+
+        // apply the x position to the text
+        textElement.attr('x', x);
+
         })
     .on('mouseout', function(event,d) {
         // Hide tooltip on mouseout
         d3.select(this).attr('stroke', '#364747');
         tooltip.transition()
             .duration(500)
-            .style("opacity", 0);
-            d3.select('#differenceText').remove();
+            .style("opacity", 0.3);
+        
     });
 
     // document.addEventListener('mousemove', function(event){
@@ -173,24 +198,47 @@ async function init(){
     //     crossLineX.attr('x1', x).attr('y1', y).attr('x2', margin.left).attr('y2', y); 
     //     crossLineY.attr('x1', x).attr('y1', y).attr('x2', x).attr('y2', height-margin.bottom);
     // }, true);
+    // Calculate the year with smallest difference
+        let minDifferenceYear = birthratedata[0].year;
+        let minDifference = Infinity;
+        for(let i = 0; i < birthratedata.length; i++) {
+        const birthRateData = birthratedata[i];
+        const deathRateData = birthratedata.find(d => d.year === birthRateData.year && d.SeriesCode !== birthRateData.SeriesCode);
+        if (deathRateData) {
+            let difference = Math.abs(birthRateData.value - deathRateData.value);
+            if (difference < minDifference) {
+            minDifference = difference;
+            minDifferenceYear = birthRateData.year;
+            }
+        }
+        }
 
+        const birthRateData = birthratedata.find(d => d.year === minDifferenceYear && d.SeriesCode === 'SP.DYN.CBRT.IN');
+        const deathRateData = birthratedata.find(d => d.year === minDifferenceYear && d.SeriesCode === 'SP.DYN.CDRT.IN');
 
+        chartGroup.append('line')
+        .attr('x1', xScale(minDifferenceYear))
+        .attr('y1', yScale(birthRateData.value))
+        .attr('x2', xScale(minDifferenceYear))
+        .attr('y2', yScale(deathRateData.value))
+        .attr('stroke', 'black')  
+        .attr('stroke-width', 1);
 
     // Add an annotation for the year 2012
     const annotationData = birthratedata.find(d => d.year === '2012');  
-    console.log(annotationData);
+    // console.log(annotationData);
     if(annotationData) {
         const annotations = [
             {
                 note: {
-                    label: `Subsequent to a transient augmentation, the birth rate undergoes a more accelerated decline.`,
+                    label: `After a transient augmentation, the birth rate underwent a more accelerated decline.`,
                     title: "Year 2012",
                     wrap: 270,
                     color: ["black"]
                 },
                 x: xScale(annotationData.year),
                 y: yScale(annotationData.value),
-                dy: -40,
+                dy: -60,
                 dx: 40
             }
         ];
@@ -199,16 +247,47 @@ async function init(){
             .annotations(annotations);
 
         chartGroup.append("g")
+        .attr("id","annotation0")
             .call(makeAnnotations);
 
-            d3.selectAll("g.annotation text")
-            .style("font-size", '25px');
+            d3.select("#annotation0 g.annotation text")
+            .style("font-size", '22px');
     }
+
+    const annotationData2 = birthratedata.find(d => d.year === minDifferenceYear && d.SeriesCode === 'SP.DYN.CBRT.IN');
+    if(annotationData2) {
+        const annotations = [
+            {
+                note: {
+                    label: `This year had the smallest difference between birth and death rates.`,
+                    title: `Year ${minDifferenceYear}`,
+                    wrap: 230
+                },
+                x: (xScale(minDifferenceYear)),
+                // y: yScale.range()[0] / 2 + yScale.range()[1] / 2,
+                y: yScale(birthRateData.value),
+                dy: 20,
+                dx: -40
+            }
+        ];
+        
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations);
+      
+        chartGroup.append("g")
+        .attr("id", "annotation1")
+        .call(makeAnnotations);
+
+      
+        d3.select("#annotation1 text")
+            .style("font-size", '22px')
+            .style("fill","red");
+      }
 
     // Define legend
     let legend = chartGroup.append('g')
     .attr('class', 'legend')
-    .attr('transform', `translate(${innerWidth - 100}, ${margin.top})`);
+    .attr('transform', `translate(${30}, ${-50})`);
 
     // Define legend items
     let legendItems = legend.selectAll('.legend-item')
@@ -220,16 +299,16 @@ async function init(){
 
     // Draw legend rectangles
     legendItems.append('rect')
-    .attr('width', 10)
-    .attr('height', 10)
+    .attr('width', 15)
+    .attr('height', 15)
     .style('fill', (d, i) => d3.schemeCategory10[i % 10]);
 
     // Add legend texts
     legendItems.append('text')
-    .attr('x', 15)
-    .attr('y', 10)
+    .attr('x', 1.5+"em")
+    .attr('y', 0.5+"em")
     .text(d => d === 'SP.DYN.CBRT.IN' ? 'Birth Rate' : 'Death Rate')
-    .style('font-size', '15px')
+    .style('font-size', '16px')
     .attr('alignment-baseline', 'middle');
 
     
