@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>scene1</title>
+    <script src="d3.v7.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js" integrity="sha512-iBAeBWWWFb8HqSBcrqcz98iIpuVH1la39dEYHtyQ/pGpeCQTQVvLJOWAuhv2Q7JSHp9k7hWA7sGxU3hHJe+tFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.js" integrity="sha512-OYIn9Tx6AQ/OfeUow7zLScBXV38CqumwIpue7WoR7RczlHJUVU+GqJmQ2Zmq/NrRsMhCN4EDGM4Wp97iTo34Jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://unpkg.com/d3-svg-annotation@2/d3-annotation.min.js"></script>
+    <style>
+        .textstyle1{
+            font-size: 50px;
+        }
+
+        .textstyle2{
+            font-weight: bold;
+            font-size: 40px;
+        }
+
+        .textstyle3{
+            font-size: 30px;
+        }
+
+        .textstyle4{
+            font-size: 20px;
+        }
+
+        #container {
+            display: flex;
+            margin-left: 80px;
+            margin-right: 70px;
+        }
+        #text-section {
+            width: 25%;
+            padding-left: 50px;
+            /* display: flex; */
+        }
+        #chart-section {
+            
+            width: 75%;
+        }
+        #buttons {
+            display: absolute;
+            /* height: 100vh; */
+        }
+        #button-section1 {
+            width: 25%;
+        }
+        #button-section2 {
+            width: 35%;
+        }
+        #button-section3 {
+            width: 15%;
+        }
+        .large-text-button {
+            /* width: 150%; */
+        font-size: 150%;
+        }
+        .long-button {
+            /* width: 150%; */
+            font-size: 150%;
+        }
+
+        .tooltip {
+        position: absolute;
+        text-align: left;
+        width: 200px;
+        height: 70px;
+        padding: 20px;
+        font: 20px sans-serif;
+        background: rgb(187, 205, 228, 0.6);
+        border: 10px;
+        border-radius: 10px;
+        pointer-events: none;
+        line-height: 1.6;
+        }
+    </style>
+
+  </head>
+
+  <body style="text-align: center" onload="init()">
+
+    <h1 id="subtitle" class="textstyle1">Global Population Trends from 1999 to 2000</h1>
+    <article id="article1">
+        <p class="textstyle3">line1</p>
+        <p class="textstyle3">line2</p>
+    </article>
+
+    <div id="container">
+        <div id="text-section">
+        <div id="buttons">
+            <!-- <div id="button-section2"> -->
+                <button onclick="location.href='scene1.html'" class="long-button">Birth Rate</button>
+            <!-- </div>
+            <div id="button-section1"> -->
+                <button onclick="location.href='scene2.html'" class="large-text-button">Death Rate</button>
+            <!-- </div>
+            <div id="button-section1"> -->
+                <button onclick="location.href='scene3.html'" class="large-text-button">Explore</button>
+            <!-- </div>
+            <div id="button-section3"> -->
+                <button onclick="location.href='scene3.html'" class="large-text-button">&gt;</button>
+            <!-- </div> -->
+        </div>
+            
+
+            <p>Your text goes here...</p>
+
+        </div>
+
+        <div id="chart-section">
+            <p class="textstyle2">Global Birth Rate from 1999 to 2020</p>
+            <svg width="1200" height="900" id="mainsvg" class="svgs" style="background-color: #ffffff;"></svg>
+        </div>
+
+    </div>
+
+    <script src="scene2chart.js"></script>
+</body>
+
+</html>
