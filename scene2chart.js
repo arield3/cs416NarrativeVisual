@@ -41,7 +41,7 @@ async function init(){
 
     
     const crossLineX = chartGroup.append('line').attr('class', 'crossLine'), crossLineY = chartGroup.append('line').attr('class', 'crossLine'); 
-    d3.selectAll('.crossLine').attr('stroke', 'black');
+    d3.selectAll('.crossLine').attr('stroke', '#959998');
 
     // Define scales
     const xScale = d3.scaleLinear()
@@ -221,7 +221,7 @@ async function init(){
         .attr('y1', yScale(birthRateData.value))
         .attr('x2', xScale(minDifferenceYear))
         .attr('y2', yScale(deathRateData.value))
-        .attr('stroke', 'black')  
+        .attr('stroke', '#CB1810')  
         .attr('stroke-width', 1);
 
     // Add an annotation for the year 2012

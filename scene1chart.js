@@ -31,7 +31,7 @@ async function init(){
 
     
     const crossLineX = chartGroup.append('line').attr('class', 'crossLine'), crossLineY = chartGroup.append('line').attr('class', 'crossLine'); 
-    d3.selectAll('.crossLine').attr('stroke', 'black');
+    d3.selectAll('.crossLine').attr('stroke', '#959998');
 
     // Define scales
     const xScale = d3.scaleLinear()

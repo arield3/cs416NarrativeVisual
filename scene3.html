@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>scene1</title>
+    <title>scene3</title>
     <script src="d3.v7.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js" integrity="sha512-iBAeBWWWFb8HqSBcrqcz98iIpuVH1la39dEYHtyQ/pGpeCQTQVvLJOWAuhv2Q7JSHp9k7hWA7sGxU3hHJe+tFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.js" integrity="sha512-OYIn9Tx6AQ/OfeUow7zLScBXV38CqumwIpue7WoR7RczlHJUVU+GqJmQ2Zmq/NrRsMhCN4EDGM4Wp97iTo34Jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
@@ -20,16 +20,21 @@
         }
 
         .textstyle3{
-            text-align: right;
-            font-size: 120%;
+            /* text-align: right; */
+            font-size: 130%;
         }
 
         .textstyle4{
-            font-size: 160%;
+            font-size: 130%;
+            padding-left: 1em;
         }
         .textstylearticle{
             /* text-align: left; */
             font-size: 130%;
+        }
+        .textstyleexplain{
+            text-align: right;
+            font-size: 150%;
         }
 
         #article1{
@@ -57,15 +62,23 @@
             justify-content: center;
         }
         #text-section {
-            width: 30%;
+            width: 25%;
             padding-left: 30px;
             align-items: right;
             /* display: flex; */
         }
+        #furtherInformation{
+            padding-top: 8em;
+            padding-left: 5em;
+            text-align: left;
+        }
+
         #chart-section {
             padding-left: 0px;
-            width: 70%;
+            width: 75%;
         }
+
+
         #buttons {
             display: absolute;
             font-size: 16px;
@@ -100,7 +113,7 @@
         .tooltip {
         position: absolute;
         text-align: left;
-        width: 200px;
+        width: 170px;
         height: 70px;
         padding: 20px;
         font: 20px sans-serif;
@@ -119,7 +132,7 @@
 
     <h1 id="subtitle" class="textstyle1">Global Population Trends from 1999 to 2000</h1>
     <article id="article1">
-        <p class="textstylearticle">Population growth is one of the most important topics in human development. Over the last few centuries, the human population has gone through an extraordinary change. After a period of population explosion, the growth slows down. The global birth and death rates have decreased in the past twenty-two years. However, the birth rate drops significantly faster than the death rate, so the differences between these measures are falling, reflecting a decreasing trend in global population growth. <span style="color:rgb(235, 60, 60)">Move mouse over the chart and explore the demographic change.</span></p>
+        <p class="textstylearticle">Population growth is one of the most important topics in human development. Over the last few centuries, the human population has gone through an extraordinary change. After a period of population explosion, the growth slows down. The global birth and death rates have decreased in the past twenty-two years. However, the birth rate drops significantly faster than the death rate, so the differences between these measures are falling, reflecting a decreasing trend in global population growth. <span style="color:rgb(235, 60, 60)">Move the mouse over the line in the chart and explore the demographic change.</span></p>
         <!-- <p class="textstylearticle">line2</p> -->
     </article>
 
@@ -140,21 +153,53 @@
             <!-- </div> -->
         </div>
             
-            <p class="textstyle2" >Birth rate, 1999 to 2021</p>
-            <p class="textstyle3">The number of live births occurring during the year, per 1,000 people. </p>
-            
-            
+            <p class="textstyle2" >Birth Rate & Death Rate, <br>1999 to 2021</p>
+            <!-- <p class="textstyle3">The number of live births occurring during the year, per 1,000 people.</p> -->
+            <p class="textstyleexplain">Birth Rate = (Number of Live Births / Total Population) x 1,000</p>
+            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
+            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
+            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
+            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
+            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
+
+            <!-- <div id="furtherInformation">
+                
+                <p class="textstyle3">The difference between the birth rate and the death rate is important.  It gives us a good indication of the rate at which a population is growing or shrinking. <br> <span style="color:rgb(235, 60, 60)">Place mouse over the following keywords:</span></p>
+                <p class="textstyle4" id="economic">- Economic</p>
+                    <div id="economic-explain" style="display: none; font-size: 1.3em; padding-bottom: 1.3em; padding-top: 0em;">
+                        <br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A high birth rate may indicate a young, growing population. This can mean a larger future workforce, which can contribute to economic growth. On the other hand, a high death rate and low birth rate can indicate an aging population. 
+                    </div>
+                
+                    <p class="textstyle4" id="Healthcare">- Healthcare</p>
+                    <div id="Healthcare-explain" style="display: none; font-size: 1.3em; padding-bottom: 1.3em; padding-top: 0em;">
+                        <br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Demographics with an aging population may face challenges related to healthcare costs, a decrease in the workforce, and the need to support an increasingly elderly population.
+                    </div>
+
+                    <p class="textstyle4" id="Education">- Education</p>
+                    <div id="Education-explain" style="display: none; font-size: 1.3em; padding-bottom: 1em;">
+                        <br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The decreasing trend of population growth may result in fewer students, which will cause school closures or consolidation, teacher layoffs or employment freeze in education, and an increment in per-student funding. It may also have significant implications on the design of curriculums and focuses and may lead to an educational revolution.
+                    </div>
+            </div> -->
 
         </div>
 
         <div id="chart-section">
             <!-- <p class="textstyle2">Global Birth Rate from 1999 to 2020</p> -->
-            <svg width="920" height="800" id="mainsvg" class="svgs" style="background-color: #ffffff;"></svg>
+            <div>
+                <label for="xSelect">X-axis: </label>
+                <select id="xSelect"></select>
+                <label for="ySelect">Y-axis: </label>
+                <select id="ySelect"></select>
+                <label for="countrySelect">Country: </label>
+                <select id="countrySelect"></select>
+            </div>
+            <svg width="1200" height="800" id="mainsvg" class="svgs" style="background-color: #ffffff;"></svg>
         </div>
 
     </div>
 
-    <script src="scene1chart.js"></script>
+    <script src="scene3chart.js"></script>
+    <script src="scene3text.js"></script>
 </div>
 </body>
 
