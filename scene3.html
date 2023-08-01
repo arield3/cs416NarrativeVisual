@@ -34,7 +34,7 @@
         }
         .textstyleexplain{
             text-align: right;
-            font-size: 150%;
+            font-size: 140%;
         }
 
         #article1{
@@ -52,30 +52,52 @@
             justify-content: center;
             /* padding-left: %;
             padding-right: 2em; */
+            margin-bottom: 0em;
         }
         #containerLarge{
-            height: 3000px;
-            width: 1700px;
+            height: 1300px;
+            width: 1850px;
             /* padding-left: 20em;
             padding-right: 2em; */
             font-size: 16px;
             justify-content: center;
         }
         #text-section {
-            width: 25%;
+            width: 27%;
             padding-left: 30px;
             align-items: right;
             /* display: flex; */
         }
         #furtherInformation{
-            padding-top: 8em;
-            padding-left: 5em;
-            text-align: left;
+            padding-top: 0em;
+            padding-left: 0em;
+            text-align: right;
         }
 
         #chart-section {
             padding-left: 0px;
-            width: 75%;
+            width: 73%;
+        }
+        select {
+        font-size: 1.3em;
+        position:-webkit-sticky;
+        align-items: left; 
+        
+        top: 0em;
+        left: 0.5em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
+        
+    }
+
+        label{
+            font-size: 1.3em;
+            padding-left: 0em;
+        padding-right: 0.5em;
+        padding-top: 0em;
+        padding-bottom: 0.3em;
         }
 
 
@@ -113,8 +135,8 @@
         .tooltip {
         position: absolute;
         text-align: left;
-        width: 170px;
-        height: 70px;
+        width: 22em;
+        height: 7em;
         padding: 20px;
         font: 20px sans-serif;
         background: rgb(187, 205, 228, 0.6);
@@ -132,7 +154,7 @@
 
     <h1 id="subtitle" class="textstyle1">Global Population Trends from 1999 to 2000</h1>
     <article id="article1">
-        <p class="textstylearticle">Population growth is one of the most important topics in human development. Over the last few centuries, the human population has gone through an extraordinary change. After a period of population explosion, the growth slows down. The global birth and death rates have decreased in the past twenty-two years. However, the birth rate drops significantly faster than the death rate, so the differences between these measures are falling, reflecting a decreasing trend in global population growth. <span style="color:rgb(235, 60, 60)">Move the mouse over the line in the chart and explore the demographic change.</span></p>
+        <p class="textstylearticle">Population growth is one of the most important topics in human development. Over the last few centuries, the human population has gone through an extraordinary change. After a period of population explosion, the growth slows down. The global birth and death rates have decreased in the past twenty-two years. However, the birth rate drops significantly faster than the death rate, so the differences between these measures are falling, reflecting a decreasing trend in global population growth. <span style="color:rgb(235, 60, 60)">Select indicators you are interested in and explore their relationships.</span></p>
         <!-- <p class="textstylearticle">line2</p> -->
     </article>
 
@@ -151,16 +173,17 @@
             <div id="button-section3"> -->
                 <button onclick="location.href='scene1.html'" class="large-text-button">&gt;</button>
             <!-- </div> -->
-        </div>
+        </div id="furtherInformation">
             
-            <p class="textstyle2" >Birth Rate & Death Rate, <br>1999 to 2021</p>
+            <p class="textstyle2" >Explore with Indicators, <br>1999 to 2021</p>
             <!-- <p class="textstyle3">The number of live births occurring during the year, per 1,000 people.</p> -->
-            <p class="textstyleexplain">Birth Rate = (Number of Live Births / Total Population) x 1,000</p>
-            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
-            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
-            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
-            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
-            <p class="textstyleexplain">Death Rate = (Number of Deaths / Total Population) x 1,000</p>
+            <p class="textstyleexplain"><span style="font-weight: bold;" >Birth Rate=</span> (Number of Live Births / Total Population) x 1,000</p>
+            <p class="textstyleexplain"><span style="font-weight: bold;" >Death Rate =</span> (Number of Deaths / Total Population) x 1,000</p>
+            <p class="textstyleexplain"><span style="font-weight: bold;" >GDP Growth <Ri:type></Ri:type>ate =</span> ((GDP(year 2) - GDP(year 1)) / GDP(year 1)) x 100</p>
+            <p class="textstyleexplain"><span style="font-weight: bold;" >GDP per Capita =</span> GDP / Population</p>
+            <p class="textstyleexplain"><span style="font-weight: bold;" >Government Expenditure on Education =</span> (total government expenditure for all levels of education / GDP) x 100</p>
+            <p class="textstyleexplain"><span style="font-weight: bold;" >Gross Enrollment Ratio for Secondary School =</span> (number of students enrolled in secondary education regardless of age/ the population of the age group which officially corresponds to secondary education) x 100</p>
+            <p class="textstyleexplain"><span style="font-weight: bold;" >Urban Population =</span> (Urban population / Total population) x 100</p>
 
             <!-- <div id="furtherInformation">
                 
@@ -183,19 +206,32 @@
 
         </div>
 
-        <div id="chart-section">
+        <div id="chart-section" >
             <!-- <p class="textstyle2">Global Birth Rate from 1999 to 2020</p> -->
             <div>
+                <p style="font-size: 130%; color: red; font-weight: bold;">The radius of the data points is determined by: <br>the difference between the birth rate and death rate in a specific region during a particular year.</p>
+            </div>
+            <div>
                 <label for="xSelect">X-axis: </label>
-                <select id="xSelect"></select>
-                <label for="ySelect">Y-axis: </label>
+                <select id="xSelect" >
+                    <!-- <option value="Death rate, crude (per 1,000 people)" selected>Death rate, crude (per 1,000 people)</option> -->
+                </select>
+                <label for="ySelect" ><br>Y-axis: </label>
                 <select id="ySelect"></select>
-                <label for="countrySelect">Country: </label>
+                <label for="countrySelect"><br>Region: </label>
                 <select id="countrySelect"></select>
             </div>
-            <svg width="1200" height="800" id="mainsvg" class="svgs" style="background-color: #ffffff;"></svg>
+            <svg width="1200" height="800" id="mainsvg" class="svgs" style="background-color: #ffffff;">
+            </svg>
         </div>
 
+        
+
+    </div>
+    <div style="text-align: left; font-size: 1.3em;margin-top: 0;">
+        <p ><span style="font-weight: bold; ">Citations: <br>[1] annotation library: <a href="https://d3-annotation.susielu.com">https://d3-annotation.susielu.com</a>
+            <br>[2] data source: <a href="https://data.worldbank.org">https://data.worldbank.org</a>
+            </span></p>
     </div>
 
     <script src="scene3chart.js"></script>

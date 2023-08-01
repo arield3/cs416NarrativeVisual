@@ -34,7 +34,7 @@ async function init(){
     const chartGroup = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
     const SeriesCodes = Array.from(new Set(birthratedata.map(d => d.SeriesCode)));
     const partitionedData = SeriesCodes.map(code => birthratedata.filter(d => d.SeriesCode === code));
-    console.log(partitionedData)
+    // console.log(partitionedData)
 
     // const minVal = d3.min(partitionedData);
     // const maxVal = d3.max(partitionedData);
