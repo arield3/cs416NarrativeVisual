@@ -1,1 +1,1 @@
-# cs416NarrativeVisual
+# NarrativeVisual
